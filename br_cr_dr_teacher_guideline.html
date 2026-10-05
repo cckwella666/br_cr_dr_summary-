@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>br / cr / dr — Teaching Guideline</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f4f0; color: #2d2d2d; padding: 32px 20px; }
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .lang-toggle { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  .lang-btn { display: flex; background: #fff; border-radius: 24px; padding: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); gap: 2px; }
+  .lang-btn button { border: none; cursor: pointer; padding: 7px 20px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; background: transparent; color: #888; transition: all 0.18s; }
+  .lang-btn button.active { background: #2d2d2d; color: #fff; }
+
+  .header { background: #2d2d2d; color: #fff; border-radius: 14px; padding: 28px 32px; margin-bottom: 20px; }
+  .header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 14px; }
+  .header h1 span { color: #ffc94d; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .meta-chip { background: rgba(255,255,255,0.12); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; }
+
+  .prep { background: #fff; border-radius: 14px; padding: 18px 22px; margin-bottom: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border-left: 4px solid #2d2d2d; }
+  .prep-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  .prep-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .prep-list li { font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+  .prep-list li::before { content: '☐'; color: #bbb; }
+
+  .timeline { display: flex; border-radius: 10px; overflow: hidden; margin-bottom: 28px; height: 10px; }
+  .tl-seg { height: 100%; }
+
+  .block { background: #fff; border-radius: 14px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .block-header { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid #f0eeea; }
+  .block-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0; }
+  .block-meta { flex: 1; }
+  .block-title { font-weight: 700; font-size: 1rem; }
+  .block-time { font-size: 0.78rem; color: #888; margin-top: 1px; }
+  .block-badge { font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
+  .block-body { padding: 18px 22px; }
+  .subhead { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 20px; margin-bottom: 8px; color: #999; }
+  .subhead:first-child { margin-top: 0; }
+  .game-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .game-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+  .description { font-size: 0.875rem; line-height: 1.7; color: #444; }
+
+  .digraph-title { font-size: 0.85rem; font-weight: 700; margin-top: 14px; margin-bottom: 6px; }
+  .pairs-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; margin-bottom: 8px; }
+  .pair-chip { background: #f5f4f0; border-radius: 8px; padding: 5px 12px; font-size: 0.82rem; font-weight: 600; font-family: monospace; white-space: nowrap; }
+
+  .steps-list { margin-top: 10px; list-style: none; counter-reset: step; }
+  .steps-list li { font-size: 0.875rem; padding: 9px 12px 9px 40px; border-radius: 8px; margin-bottom: 6px; background: #f9f8f5; line-height: 1.6; position: relative; counter-increment: step; }
+  .steps-list li::before { content: counter(step); position: absolute; left: 10px; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: #2d2d2d; color: #fff; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+  .sentence-list { margin-top: 10px; list-style: none; }
+  .sentence-list li { font-size: 0.875rem; padding: 7px 12px; border-radius: 8px; margin-bottom: 5px; background: #f9f8f5; display: flex; align-items: flex-start; gap: 8px; }
+  .sentence-list li::before { content: '→'; flex-shrink: 0; color: #bbb; font-size: 0.8rem; margin-top: 1px; }
+
+  .fill-line { display: inline-block; min-width: 200px; border-bottom: 1px dashed #bbb; padding: 2px 4px; }
+
+  .tip { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; line-height: 1.5; border-left: 3px solid; }
+
+  .b1 .block-num { background: #3aada6; } .b1 .block-badge { background: #e4f5f4; color: #1f7f79; } .b1 .tip { background: #edfaf9; border-color: #3aada6; } .tl-b1 { background: #3aada6; flex: 35; }
+  .b1 .digraph-title.c-br { color: #1f7f79; } .b1 .digraph-title.c-cr { color: #5c3aaa; } .b1 .digraph-title.c-dr { color: #b02535; }
+  .b2 .block-num { background: #e07a2d; } .b2 .block-badge { background: #fdecda; color: #c25b00; } .b2 .game-label, .b2 .game-name { color: #c25b00; } .b2 .tip { background: #fdf2e6; border-color: #e07a2d; } .tl-b2 { background: #e07a2d; flex: 10; }
+  .b3 .block-num { background: #52b369; } .b3 .block-badge { background: #e9f7ed; color: #2d7d42; } .b3 .game-label, .b3 .game-name { color: #2d7d42; } .tl-b3 { background: #52b369; flex: 10; }
+  .b4 .block-num { background: #d4a017; } .b4 .block-badge { background: #fdf6e0; color: #9a7010; } .b4 .game-label, .b4 .game-name { color: #9a7010; } .b4 .tip { background: #fdf8e8; border-color: #d4a017; } .tl-b4 { background: #d4a017; flex: 10; }
+  .b5 .block-num { background: #3a7bc8; } .b5 .block-badge { background: #e6f0fb; color: #2f6fb0; } .b5 .game-label, .b5 .game-name { color: #2f6fb0; } .tl-b5 { background: #3a7bc8; flex: 20; }
+  .b6 .block-num { background: #999; } .b6 .block-badge { background: #f0eeea; color: #777; } .tl-b6 { background: #bbb; flex: 5; }
+
+  .footer { text-align: center; font-size: 0.75rem; color: #aaa; margin-top: 28px; }
+
+  [data-lang] { display: none; }
+  body.lang-en [data-lang="en"] { display: revert; }
+  body.lang-zh [data-lang="zh"] { display: revert; }
+  span[data-lang] { display: none; }
+  body.lang-en span[data-lang="en"] { display: inline; }
+  body.lang-zh span[data-lang="zh"] { display: inline; }
+
+  @media print { body { background: #fff; padding: 0; } .block { box-shadow: none; border: 1px solid #eee; } .lang-toggle { display: none; } }
+</style>
+</head>
+<body class="lang-en">
+<div class="page">
+
+  <div class="lang-toggle">
+    <div class="lang-btn">
+      <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+      <button id="btn-zh" onclick="setLang('zh')">中文</button>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>
+      <span data-lang="en">br / cr / dr — <span style="color:#ffc94d">Teaching Guideline</span></span>
+      <span data-lang="zh">br / cr / dr — <span style="color:#ffc94d">教學指南</span></span>
+    </h1>
+    <div class="meta-row">
+      <span class="meta-chip">⏱ 90 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></span>
+      <span class="meta-chip">👶 <span data-lang="en">Age</span><span data-lang="zh">年齡</span> 4–6</span>
+      <span class="meta-chip">👤 <span data-lang="en">1-on-1</span><span data-lang="zh">一對一</span></span>
+      <span class="meta-chip">🆕 <span data-lang="en">New: br·cr·dr (R-Blends Part 1)</span><span data-lang="zh">新教：br·cr·dr（R-Blends 第一部分）</span></span>
+      <span class="meta-chip">🎃 <span data-lang="en">Halloween theme</span><span data-lang="zh">萬聖節主題</span></span>
+      <span class="meta-chip">📍 Tyson &amp; Keira</span>
+    </div>
+  </div>
+
+  <div class="prep">
+    <div class="prep-title"><span data-lang="en">Before Class — Prep Checklist</span><span data-lang="zh">課前準備清單</span></div>
+    <ul class="prep-list">
+      <li><span data-lang="en">Blend cards: br, cr, dr</span><span data-lang="zh">字母組合卡：br、cr、dr</span></li>
+      <li><span data-lang="en">15 new word cards (5 per blend)</span><span data-lang="zh">15張新單字卡（每組5張）</span></li>
+      <li><span data-lang="en">Trick-or-Treat Bingo boards + counters</span><span data-lang="zh">萬聖節賓果卡 + 計數物</span></li>
+      <li><span data-lang="en">Sight word cards (existing set)</span><span data-lang="zh">常見字卡（目前累積的）</span></li>
+      <li><span data-lang="en">Flashlight sheets: word sheet + doodle sheet, glued together</span><span data-lang="zh">手電筒遊戲紙：單字紙 + 塗鴉紙，黏合好</span></li>
+      <li><span data-lang="en">Flashlight or phone light</span><span data-lang="zh">手電筒或手機手電筒</span></li>
+      <li><span data-lang="en">Detective Case File worksheet (1 per child) + pencils</span><span data-lang="zh">偵探紀錄單（每人一張）+ 鉛筆</span></li>
+      <li><span data-lang="en">Two storytime books</span><span data-lang="zh">兩本故事書</span></li>
+      <li><span data-lang="en">Take-home card + star stickers</span><span data-lang="zh">帶回家小卡 + 星星貼紙</span></li>
+    </ul>
+  </div>
+
+  <div class="tip" style="background:#f5f4f0; border-color:#2d2d2d; margin-bottom:24px;">
+    <span data-lang="en">📌 No review block this round — straight into new content. Teach br, cr and dr one after another, then play one bingo round with all 15 new words. Later, a Halloween flashlight detective game reviews the three blends again in a new way.</span>
+    <span data-lang="zh">📌 這次沒有複習段落——直接進入新內容。依序教完 br、cr、dr，接著用全部15個新單字玩一輪賓果。之後再用萬聖節手電筒偵探遊戲，用新的方式複習這三組混合音。</span>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-seg tl-b1"></div>
+    <div class="tl-seg tl-b2"></div>
+    <div class="tl-seg tl-b3"></div>
+    <div class="tl-seg tl-b4"></div>
+    <div class="tl-seg tl-b5"></div>
+    <div class="tl-seg tl-b6"></div>
+  </div>
+
+  <!-- Block 1: Core Teaching br/cr/dr -->
+  <div class="block b1">
+    <div class="block-header">
+      <div class="block-num">1</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Core Teaching: br / cr / dr</span><span data-lang="zh">核心教學：br / cr / dr</span></div>
+        <div class="block-time">0:00 – 0:35 · 35 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Main Lesson</span><span data-lang="zh">主要課程</span></span>
+    </div>
+    <div class="block-body">
+      <div class="subhead"><span data-lang="en">Teaching Method — repeat for each blend, ~11 min</span><span data-lang="zh">教學方法 — 每組重複一次，約11分鐘</span></div>
+      <ol class="steps-list">
+        <li><span data-lang="en"><strong>Isolate both sounds.</strong> Say each letter sound separately first ("b...r"), then say them fast together ("br"). Both letters are still heard.</span><span data-lang="zh"><strong>拆解兩個音。</strong>先分開唸兩個字母的音（「b...r」），再快速合起來（「br」）。兩個字母的音都還聽得到。</span></li>
+        <li><span data-lang="en"><strong>Trace &amp; say.</strong> Show the blend card. Child traces the two letters while saying the blend aloud.</span><span data-lang="zh"><strong>描寫並發音。</strong>出示字母組合卡，孩子描寫兩個字母，同時唸出混合音。</span></li>
+        <li><span data-lang="en"><strong>Oral blending.</strong> Say the blend + rest of word in two chunks, child blends: "br...ush → ?" (brush). 3–4 words per blend before showing print.</span><span data-lang="zh"><strong>口頭拼讀。</strong>把單字分成兩段唸，孩子拼起來：「br...ush → ?」（brush）。每組先做3–4個口頭練習，再出示文字卡。</span></li>
+        <li><span data-lang="en"><strong>Read the word cards.</strong> Show all 5 word cards for that blend. Child reads each aloud. Correct by re-blending, not by giving the answer.</span><span data-lang="zh"><strong>讀字卡。</strong>出示該組的5張字卡，孩子逐一唸出。唸錯時用重新拼讀引導，不直接給答案。</span></li>
+        <li><span data-lang="en"><strong>Sentence practice.</strong> Read the practice sentence together, child points to the blend word(s).</span><span data-lang="zh"><strong>句子練習。</strong>一起讀練習句，孩子指出含有該混合音的單字。</span></li>
+      </ol>
+      <div class="tip">
+        <span data-lang="en">💡 Between blends, do a 30-second stand-up reset — e.g. "brush your teeth" for br, "crab walk" for cr, "drum on your knees" for dr — to keep focus up across all three.</span>
+        <span data-lang="zh">💡 每教完一組，站起來做30秒的小動作轉換——例如 br 做「刷牙」、cr 做「螃蟹走路」、dr 做「在膝蓋上打鼓」——讓孩子三組都能保持專注。</span>
+      </div>
+
+      <div class="subhead"><span data-lang="en">Word Lists &amp; Practice Sentences</span><span data-lang="zh">單字表與練習句</span></div>
+
+      <div class="digraph-title c-br">br /br/</div>
+      <div class="pairs-grid"><span class="pair-chip">brush</span><span class="pair-chip">brave</span><span class="pair-chip">bridge</span><span class="pair-chip">broom</span><span class="pair-chip">brown</span></div>
+      <ul class="sentence-list"><li><span data-lang="en">The brave boy swept the bridge with a brown broom.</span><span data-lang="zh">The brave boy swept the bridge with a brown broom.（勇敢的男孩用棕色掃帚掃橋。）</span></li></ul>
+
+      <div class="digraph-title c-cr">cr /kr/</div>
+      <div class="pairs-grid"><span class="pair-chip">crab</span><span class="pair-chip">crayon</span><span class="pair-chip">crown</span><span class="pair-chip">cry</span><span class="pair-chip">cross</span></div>
+      <ul class="sentence-list"><li><span data-lang="en">Don't cry — color the crown with a crayon.</span><span data-lang="zh">Don't cry — color the crown with a crayon.（別哭——用蠟筆畫皇冠。）</span></li></ul>
+
+      <div class="digraph-title c-dr">dr /dr/</div>
+      <div class="pairs-grid"><span class="pair-chip">drum</span><span class="pair-chip">dress</span><span class="pair-chip">drive</span><span class="pair-chip">drop</span><span class="pair-chip">dragon</span></div>
+      <ul class="sentence-list"><li><span data-lang="en">The dragon can drive and play the drum.</span><span data-lang="zh">The dragon can drive and play the drum.（龍會開車也會打鼓。）</span></li></ul>
+    </div>
+  </div>
+
+  <!-- Block 2: Trick-or-Treat Bingo -->
+  <div class="block b2">
+    <div class="block-header">
+      <div class="block-num">2</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Trick-or-Treat Bingo</span><span data-lang="zh">萬聖節賓果</span></div>
+        <div class="block-time">0:35 – 0:45 · 10 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Practice Game</span><span data-lang="zh">練習遊戲</span></span>
+    </div>
+    <div class="block-body">
+      <div class="game-label"><span data-lang="en">Game</span><span data-lang="zh">遊戲</span></div>
+      <div class="game-name"><span data-lang="en">Trick-or-Treat Bingo — br / cr / dr</span><span data-lang="zh">萬聖節賓果 — br / cr / dr</span></div>
+      <p class="description">
+        <span data-lang="en"><strong>Materials:</strong> the two Trick-or-Treat Bingo boards (Tyson's + Keira's) + counters. Each board has all 15 new words.<br><strong>How to run:</strong> call a word from today's br/cr/dr set. Both children find it on their own board, read it aloud, and cover it. First to complete a row, column, or diagonal calls "Trick or Treat!" instead of "Bingo!" — winner gets a "treat" sticker.</span>
+        <span data-lang="zh"><strong>教具：</strong>兩張萬聖節賓果卡（Tyson 的 + Keira 的）+ 計數物。每張卡都有全部15個新單字。<br><strong>玩法：</strong>唸出今天 br/cr/dr 的單字。兩個孩子在自己的卡上找到、唸出來並蓋住。第一個連成一排、一列或對角線的人喊「Trick or Treat!」代替「Bingo!」——贏家得到一張「treat」貼紙。</span>
+      </p>
+      <div class="tip">
+        <span data-lang="en">💡 After they cover a word, ask "Which blend?" — a quick way to check they can tell br, cr and dr apart.</span>
+        <span data-lang="zh">💡 孩子蓋住單字後，問一句「是哪個混合音？」——快速確認他們分得出 br、cr、dr。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 3: Sight Words -->
+  <div class="block b3">
+    <div class="block-header">
+      <div class="block-num">3</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Sight Words Recognition</span><span data-lang="zh">常見字認讀</span></div>
+        <div class="block-time">0:45 – 0:55 · 10 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Review</span><span data-lang="zh">複習</span></span>
+    </div>
+    <div class="block-body">
+      <div class="game-label"><span data-lang="en">Game</span><span data-lang="zh">遊戲</span></div>
+      <div class="game-name"><span data-lang="en">Speed Flip or Musical Cards</span><span data-lang="zh">快閃字卡 或 音樂傳卡</span></div>
+      <p class="description">
+        <span data-lang="en"><strong>Materials:</strong> full accumulated sight word set.<br><strong>How to run:</strong> pick whichever format fits the day's energy. No new sight words this round — just consolidating what's been built up so far.</span>
+        <span data-lang="zh"><strong>教具：</strong>目前累積的全部常見字。<br><strong>玩法：</strong>依當天精神狀況挑一種玩法。這次不加新字——單純鞏固目前累積的內容。</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Block 4: Flashlight Detective -->
+  <div class="block b4">
+    <div class="block-header">
+      <div class="block-num">4</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Flashlight Detective — Blend Review</span><span data-lang="zh">手電筒偵探 — 混合音複習</span></div>
+        <div class="block-time">0:55 – 1:05 · 10 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Review Game</span><span data-lang="zh">複習遊戲</span></span>
+    </div>
+    <div class="block-body">
+      <p class="description">
+        <span data-lang="en">Reviews today's three new blends. Six words (2 each of br, cr, dr) are hidden underneath 6 different Halloween doodles — a pumpkin, ghost, Frankenstein, cauldron, haunted house and black cat. Kids shine a flashlight from behind the paper to reveal the word inside each doodle.</span>
+        <span data-lang="zh">複習今天教的三組新混合音。6個單字（br、cr、dr 各2個）藏在6個不同的萬聖節塗鴉底下——南瓜、幽靈、科學怪人、魔法大鍋、鬼屋和黑貓。孩子用手電筒從紙的背面照，就能看到每個塗鴉裡藏的單字。</span>
+      </p>
+
+      <div class="subhead"><span data-lang="en">Prep (before class)</span><span data-lang="zh">課前準備</span></div>
+      <ol class="steps-list">
+        <li><span data-lang="en"><strong>Print both sheets</strong> on thin, plain printer paper — Sheet 1 (words) and Sheet 2 (doodles). Thick paper blocks the light.</span><span data-lang="zh"><strong>列印兩張紙</strong>，用一般薄的影印紙——第1張（單字）和第2張（塗鴉）。厚紙會擋住光線。</span></li>
+        <li><span data-lang="en"><strong>Glue them together.</strong> Doodle sheet on top, word sheet underneath, both facing up. Line up the corner marks. Glue only around the edges so the glue doesn't blur the words.</span><span data-lang="zh"><strong>黏合兩張紙。</strong>塗鴉紙在上、單字紙在下，兩張都正面朝上，對齊四個角的記號。只在邊緣上膠，避免膠水讓單字變模糊。</span></li>
+      </ol>
+
+      <div class="game-label" style="margin-top:16px;"><span data-lang="en">Game (~5 min)</span><span data-lang="zh">遊戲（約5分鐘）</span></div>
+      <div class="game-name"><span data-lang="en">Flashlight Detective</span><span data-lang="zh">手電筒偵探</span></div>
+      <p class="description">
+        <span data-lang="en"><strong>Hidden words:</strong> crab, brush, dragon, crown, bridge, drum.<br><strong>Materials:</strong> the glued sheet + a flashlight or phone light.<br><strong>How to run:</strong> dim the room a little. Hold the sheet up and shine the flashlight from behind it, one doodle at a time. The hidden word appears inside the doodle. The detective reads it aloud and says which blend it starts with (br, cr or dr). Take turns: one child holds the light, the other is the detective.</span>
+        <span data-lang="zh"><strong>隱藏單字：</strong>crab、brush、dragon、crown、bridge、drum。<br><strong>教具：</strong>黏好的遊戲紙 + 手電筒或手機手電筒。<br><strong>玩法：</strong>把房間燈稍微調暗。把紙拿起來，手電筒從背面一次照一個塗鴉，藏在塗鴉裡的單字就會出現。偵探唸出單字，並說出開頭是哪個混合音（br、cr 或 dr）。輪流進行：一個孩子拿手電筒，另一個當偵探。</span>
+      </p>
+      <div class="tip">
+        <span data-lang="en">💡 Before each reveal, let them guess what's hiding in the doodle — the guessing builds the excitement. If the words show through too much in normal light, glue one blank sheet in between the two layers.</span>
+        <span data-lang="zh">💡 每次照之前，先讓孩子猜猜塗鴉裡藏了什麼——猜測能讓氣氛更興奮。如果平常光線下就看得到單字，可以在兩層之間多黏一張白紙。</span>
+      </div>
+
+      <div class="game-label" style="margin-top:16px;"><span data-lang="en">After the Hunt (~5 min)</span><span data-lang="zh">搜查之後（約5分鐘）</span></div>
+      <div class="game-name"><span data-lang="en">Detective Case File</span><span data-lang="zh">偵探紀錄單</span></div>
+      <p class="description">
+        <span data-lang="en"><strong>Materials:</strong> one Detective Case File worksheet per child + pencils.<br><strong>How to run:</strong> hand it out only after all 6 words are found, since the words are printed on it. Part 1: for each doodle, the child circles the blend (br / cr / dr), traces the hidden word, and colors the star. Part 2: they draw one thing they found and say the sentence "I found a ___." out loud.</span>
+        <span data-lang="zh"><strong>教具：</strong>每人一張偵探紀錄單 + 鉛筆。<br><strong>玩法：</strong>6個單字都找到之後才發下去，因為紀錄單上印有答案。第1部分：每個塗鴉旁，孩子圈出混合音（br / cr / dr）、描寫藏起來的單字，再把星星塗上顏色。第2部分：畫出一個找到的東西，並大聲說出「I found a ___.」。</span>
+      </p>
+      <div class="tip">
+        <span data-lang="en">💡 Running short on time? Do Part 1 in class and send Part 2 home as a small take-home task.</span>
+        <span data-lang="zh">💡 時間不夠的話，課堂上先完成第1部分，第2部分當作回家的小任務。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block 5: Storytime -->
+  <div class="block b5">
+    <div class="block-header">
+      <div class="block-num">5</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Storytime</span><span data-lang="zh">故事時間</span></div>
+        <div class="block-time">1:05 – 1:25 · 20 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Reading</span><span data-lang="zh">閱讀</span></span>
+    </div>
+    <div class="block-body">
+      <div class="game-label"><span data-lang="en">Books</span><span data-lang="zh">書名</span></div>
+      <div class="game-name"><span class="fill-line">&nbsp;</span> &nbsp;/&nbsp; <span class="fill-line">&nbsp;</span></div>
+      <p class="description">
+        <span data-lang="en">Two books, about 10 min each, or split by child if doing one book per person. Suggested light-touch routine per book: look at the cover and predict, point out 1–2 familiar words per page, ask one comprehension question after.</span>
+        <span data-lang="zh">兩本書，每本約10分鐘，或依孩子分配各讀一本。建議流程：看封面猜猜看，閱讀時每頁指出1–2個已學過的單字，讀完後問一個理解問題。</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Block 6: Wind-down -->
+  <div class="block b6">
+    <div class="block-header">
+      <div class="block-num">6</div>
+      <div class="block-meta">
+        <div class="block-title"><span data-lang="en">Wind-down</span><span data-lang="zh">課程收尾</span></div>
+        <div class="block-time">1:25 – 1:30 · 5 <span data-lang="en">min</span><span data-lang="zh">分鐘</span></div>
+      </div>
+      <span class="block-badge"><span data-lang="en">Close</span><span data-lang="zh">結尾</span></span>
+    </div>
+    <div class="block-body">
+      <p class="description">
+        <span data-lang="en">Child picks their 3 favorite new words from today's class and says each one aloud. Write them on a small take-home card. Star sticker reward as usual.</span>
+        <span data-lang="zh">孩子選出今天最喜歡的3個新單字，逐一唸出。老師寫在小卡片上讓孩子帶回家。依慣例貼上星星貼紙獎勵。</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span data-lang="en">br / cr / dr Teaching Guideline · Tyson &amp; Keira · 2026</span>
+    <span data-lang="zh">br / cr / dr 教學指南 · Tyson &amp; Keira · 2026</span>
+  </div>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  }
+</script>
+</body>
+</html>
